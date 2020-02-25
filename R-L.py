@@ -5,13 +5,16 @@
 from mrjob.job import MRJob
 from mrjob.step import MRStep
 import functools
+import re
+
+Word_RE = re.compile(r"[\w']+")
 
 
 class myFirstMR(MRJob):
     def steps(self):
         return [
             MRStep(mapper=self.mapper_get_column_keys,
-                   combiner=self.combinerz,
+                   combiner=self.combiner1,
 
                    reducer=self.reducer_count_combos)  # Come back and place in the mapper and reducer)
 
@@ -19,12 +22,12 @@ class myFirstMR(MRJob):
 
     def mapper_get_column_keys(self, _, line):
         # This splits the line  by commas, and stores it in a list
-        pair = line.split(',')
+        pair =  Word_RE.findall(line)
         self.increment_counter('Map', 'Number of Lines ', 1)
         yield (pair[1], 1)  # Assigns a <k,v> pair for column R, with 1 indicating it is in R 
         yield (pair[0], 0). # Assigns a <k,v> pair for column L, with 0 indicating it is in L
 
-    def combinerz(self, key, values):
+    def combiner1(self, key, values):
     # Probably a better way to do this, but I just reduce each set of value so that if there's any instance in column L, the value becomes zero.
         value = functools.reduce((lambda x, y, : x*y), values) 
 
