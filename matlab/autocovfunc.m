@@ -1,6 +1,6 @@
 %% This simulates a data generating process then plots the autocovariance function for it.
 
-%%  THIS FILE IS ECO790 #1 - CHASE COLEMAN
+
 clear all; close all; clc;
 
  %Simulate the process
