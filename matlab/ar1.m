@@ -1,8 +1,5 @@
 
-%%  THIS FILE IS ECO790 #3 - CHASE COLEMAN
-
-
-%% This file simulates an AR! process then graphes the spectrum 
+%% This file simulates an AR1 process then graphes the spectrum 
 clear all; close all; clc;
 
 T     = 300;            %Number of Observations
