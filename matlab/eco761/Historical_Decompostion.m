@@ -81,38 +81,41 @@ IRF=irfvar_hw2(A,B0inv,p,q,t-p-1);
 % {1,5,7} and {3,6,9} for shocks in goverment 
 yhat1=zeros(t-p,1); yhat2=zeros(t-p,1); yhat3=zeros(t-p,1); 
 for i=1:t-p
-    yhat1(i,:)=dot(IRF(3,1:i),What(3,i:-1:1));
-    yhat2(i,:)=dot(IRF(6,1:i),What(6,i:-1:1));
-    yhat3(i,:)=dot(IRF(9,1:i),What(9,i:-1:1));  
+    yhat1(i,:)=dot(IRF(3,1:i),What(1,i:-1:1));
+    yhat2(i,:)=dot(IRF(6,1:i),What(2,i:-1:1));
+    yhat3(i,:)=dot(IRF(9,1:i),What(3,i:-1:1));  
 end;
 
-%% Section 4) Plot 
-% 
-% % Plot actual demeaned real price of oil and its historical decomposition
-% time=1973+2/12+p/12:1/12:2012+5/12; 
- subplot(q ,1,1)
- plot(t,y,'k-','linewidth',3);
-% plot(t ,detrend(y(25:end,3),0)*100,'k-','linewidth',3);
-% title('Demeaned Real Price of Crude Oil','fontsize',18)
-% ylabel('Percent','fontsize',18)
-% axis([1978+6/12 2012+5/12 -125 125])
-% line([(2008+7/12) (2008+7/12)], [-Inf Inf],'linewidth',3)
-% grid on
-% 
- subplot(q,1,2)
- plot(t,yhat1,'k-','linewidth',3);
-% title('Cumulative Effect of Flow Supply Shock on Real Price of Crude Oil','fontsize',18)
-% ylabel('Percent','fontsize',18)
-% axis([1978+6/12 2012+5/12 -125 125])
-% grid on
-% 
-  subplot(q,1,3)
-  plot(t,yhat2,'k-','linewidth',3);
-% title('Cumulative Effect of Flow Demand Shock on Real Price of Crude Oil','fontsize',18)
-% ylabel('Percent','fontsize',18)
-% axis([1978+6/12 2012+5/12 -125 125])
-% grid on
-% 
+%% Section 4) Plot the histrorical decomposition
+
+
+% Here I make the time variable for the x-axis, because there are 4 lags,
+% I start at 1951, four quarters after the start of the data.
+time = datetime(1951,01,01):calquarters(1):datetime(2015,07,01); 
+
+
+
+subplot(q ,1,1)
+plot(time,detrend(y(5:263,3)),'k-','linewidth',3);
+title(' Detrended GDP real per capita ','fontsize',18)
+ylabel('dollars?','fontsize',18)
+grid on
+
+
+% Histroical Decompostion of Spending, Yhat1
+subplot(q,1,2)
+plot(time,yhat1,'k-','linewidth',3);
+title('Cumulative Effect of Spending Shock on GDP', 'fontsize',18)
+ylabel('Percent','fontsize',18)
+grid on
+
+% Histroical Decompostion of Tax, Yhat2
+subplot(q,1,3)
+plot(time, yhat2,'k-','linewidth',3);
+title('Cumulative Effect of Tax Shock on GDP','fontsize',18)
+ylabel('Percent','fontsize',18)
+grid on
+
 
 
 
