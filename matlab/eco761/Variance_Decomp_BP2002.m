@@ -46,7 +46,7 @@ y = table2array(y);
 
 % Creates the Impusle Response Functions
 horizon=0:h;
-[IRF]=irfvar_hw(A,SIGMA(1:q,1:q),p,h,q);
+[IRF]=IRF_cholesky(A,SIGMA(1:q,1:q),p,h,q);
 
 % Quantifyings the effect of other variables on Tax
 % IRF(4,:)=cumsum(IRF(4,:));
