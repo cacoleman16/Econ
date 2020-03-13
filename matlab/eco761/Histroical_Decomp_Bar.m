@@ -93,16 +93,20 @@ yhat2=yhat2(start_time:end_time,1);
 yhat3=yhat3(start_time:end_time,1);
 
            
-% Bar chart cumulative GDP per captia change: 1979.1 - 1990
+% Bar chart cumulative GDP per captia change: 1979.1 - 1990.1
+
 Dtrue=gdpMean*(1+ytrue(end)/100)-gdpMean*(1+ytrue(1)/100);
 D1=gdpMean*(1+yhat1(end)/100)-gdpMean*(1+yhat1(1)/100);
 D2=gdpMean*(1+yhat2(end)/100)-gdpMean*(1+yhat2(1)/100);
 D3=gdpMean*(1+yhat3(end)/100)-gdpMean*(1+yhat3(1)/100);
-
+D = {D1,D2,D3};
+for i = 1:3;
+   D{i} = abs(D{i});
+end
 %% Section 5)
         
 subplot(1,1,1)
-bar([D1 D2 D3 Dtrue])
+bar([D{1} D{2} D{3} Dtrue])
 ylabel('Dollars?','fontsize',16)
 % axis([0 6 0 100])
 grid on
