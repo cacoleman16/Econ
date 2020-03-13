@@ -1,6 +1,3 @@
-%%% THIS IS STILL A WORK IN PROGRES %%%
-
-
 
 %% This file creates the Counter Factual for Homework 3, ECO 761
 %%%       Outline    %%%
@@ -115,16 +112,15 @@ time = datetime(1951,01,01):calquarters(1):datetime(2015,07,01);
 
 
 subplot(q ,1,1)
-plot(time,ydollar,'b-',time,yhatno1,'r:','linewidth',3);
+plot(time,gdp(1+p:end),'b-')
 title(' Detrended GDP real per capita ','fontsize',18)
-legend('Actual','Counterfactual')
 ylabel('dollars?','fontsize',18)
 grid on
 
 
 % Histroical Decompostion of Spending, Yhat1
 subplot(q,1,2)
-plot(time,ydollar,'b-',time,yhatno2,'r:','linewidth',3);
+plot(time,ydollar,'b-',time,yhatno1,'r:','linewidth',3);
 title('Cumulative Effect of Spending Shock on GDP', 'fontsize',18)
 legend('Actual','Counterfactual')
 ylabel('Percent','fontsize',18)
@@ -132,7 +128,7 @@ grid on
 
 % Histroical Decompostion of Tax, Yhat2
 subplot(q,1,3)
-plot(time,ydollar,'b-',time,yhatno3,'r:','linewidth',3);
+plot(time,ydollar,'b-',time,yhatno2,'r:','linewidth',3);
 title('Cumulative Effect of Tax Shock on GDP','fontsize',18)
 legend('Actual','Counterfactual')
 ylabel('Percent','fontsize',18)
