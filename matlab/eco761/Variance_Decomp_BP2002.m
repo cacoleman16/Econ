@@ -41,7 +41,7 @@ y = table2array(y);
 %% Section 2: Generates the VAR and IRF
 % This fuction is from Lutz Kilian, 1997
 % It does the VAR estiamtion a la OLS
-[A,SIGMA,Uhat,V,X] = olsvarc2(y,p); 
+[A,SIGMA,Uhat,V,X] = var_ols(y,p); 
 
 
 % Creates the Impusle Response Functions
