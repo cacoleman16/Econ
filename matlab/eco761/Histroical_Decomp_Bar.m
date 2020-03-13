@@ -4,7 +4,7 @@
 % 1) Reads in the data and intaializes values
 % 2) Calculates the VAR and IRF
 % 3) Gives weights for each of structural shocks at a given time horizon
-% 4) Generate the bar graphes for the chosen time horizon 
+% 4) Generate the bar graphes for the chosen time horizon (1979.1 - 1990.1)
 % 5) Plot the bar grahpes 
 % like figure 4.3 Kilan Lutz 
 
@@ -20,6 +20,8 @@ global h t;
 
 h=15;           % Maximum impulse response horizon
 p=4;            % Lag order
+start_time = 113 % 1979.1
+end_time = 160 % `1990.1
 
 %I read the data in as a table, but we want it in matrix form
 y = readtable('/Users/chase/Downloads/bpdata.xlsx','ReadRowNames',true);
@@ -84,18 +86,18 @@ gdp = y(:,3); % Real gdp per captia in levels
 gdpMean=mean(gdp);
 gdpExa=((gdp-mean(gdp))./mean(gdp))*100; 
 
-% Focus on 1997.1-1990.0
-ytrue=deseasonal_quarter(gdpExa); ytrue=ytrue(113:160,1);
-yhat1=yhat1(113:160,1);
-yhat2=yhat2(113:160,1);
-yhat3=yhat3(113:160,1);
+% Focus on 1979.1-1990.1
+ytrue=deseasonal_quarter(gdpExa); ytrue=ytrue(start_time:end_time,1);
+yhat1=yhat1(start_time:end_time,1);
+yhat2=yhat2(start_time:end_time,1);
+yhat3=yhat3(start_time:end_time,1);
 
            
 % Bar chart cumulative GDP per captia change: 1979.1 - 1990
-Dtrue=gdpMean*(1+ytrue(48)/100)-gdpMean*(1+ytrue(1)/100)
-D1=gdpMean*(1+yhat1(48)/100)-gdpMean*(1+yhat1(1)/100)
-D2=gdpMean*(1+yhat2(48)/100)-gdpMean*(1+yhat2(1)/100)
-D3=gdpMean*(1+yhat3(48)/100)-gdpMean*(1+yhat3(1)/100)
+Dtrue=gdpMean*(1+ytrue(end)/100)-gdpMean*(1+ytrue(1)/100)
+D1=gdpMean*(1+yhat1(end)/100)-gdpMean*(1+yhat1(1)/100)
+D2=gdpMean*(1+yhat2(end)/100)-gdpMean*(1+yhat2(1)/100)
+D3=gdpMean*(1+yhat3(end)/100)-gdpMean*(1+yhat3(1)/100)
 
 %% Section 5)
         
