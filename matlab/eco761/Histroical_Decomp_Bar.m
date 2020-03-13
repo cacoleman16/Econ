@@ -40,7 +40,7 @@ y = table2array(y);
 
 %% Section 2) Calculate the VAR and IRF
 % It does the VAR estiamtion a la OLS
-[A,SIGMA,Uhat,V,X] = var_ols(y,p);
+[A,SIGMA,Uhat,V,X] = olsvarc4(y,p);
 % y       Data matrix
 % B0inv   Structural multiplier matrix
 % A       Companion matrix
@@ -64,7 +64,7 @@ else
 end 
   
 % Compute structural multipliers for a horizon of t-p
-IRF=irfvar_cholesky(A,B0inv,p,q,t-p-1);
+IRF=irfvar_hw2(A,B0inv,p,q,t-p-1);
 
 % Compute structural shocks What from reduced-form shocks Uhat 
 
@@ -104,9 +104,10 @@ for i = 1:3;
    D{i} = abs(D{i});
 end
 %% Section 5)
-        
+names = {'Spending Shocks', 'Tax Shocks', 'GDP shocks' ,'Total'} ;   
 subplot(1,1,1)
-bar([D{1} D{2} D{3} Dtrue])
-ylabel('Dollars?','fontsize',16)
+bar([D{1} D{2} D{3} abs(Dtrue)])
+ylabel('Log( Real per captia Dollars)','fontsize',16)
+set(gca,'xticklabel',names)
 % axis([0 6 0 100])
 grid on
