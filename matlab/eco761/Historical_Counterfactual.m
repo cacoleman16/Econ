@@ -18,6 +18,7 @@ close all;
 % with this script will use them.
 global h t;
 
+debug = false;
 h=15;           % Maximum impulse response horizon
 p=4;            % Lag order
 
@@ -89,11 +90,9 @@ end;
 
 %% Section 4) Create the counterfactual 
 % Real GDP expressed in exact percent deviations from mean
-gdp = exp(y(:,3)); % Real gdp per captia in levels 
+gdp = y(:,3); % Real gdp per captia in levels 
 gdpMean=mean(gdp);
 gdpExa=((gdp-mean(gdp))./mean(gdp))*100; 
-
-
 ytrue = deseasonal_quarter(gdpExa); ytrue=ytrue(1+p:end,1);
 yhat=yhat1+yhat2+yhat3;
 %% Here i need to check
@@ -110,30 +109,65 @@ yhatno3=ydollar-mean(ydollar).*(1+yhat3(1:end,1)/100)+mean(ydollar);
 time = datetime(1951,01,01):calquarters(1):datetime(2015,07,01); 
 
 
+%% Debug
+%%% I wrote this part just to play with alternative ways of calculating the
+%%% counterfactual, because I was not sure which would be best given our
+%%% units. If debug is set to false you can ignore this.
 
-subplot(q ,1,1)
-plot(time,gdp(1+p:end),'b-')
-title(' Detrended GDP real per capita ','fontsize',18)
-ylabel('dollars?','fontsize',18)
-grid on
-
-
-% Histroical Decompostion of Spending, Yhat1
-subplot(q,1,2)
-plot(time,ydollar,'b-',time,yhatno1,'r:','linewidth',3);
-title('Cumulative Effect of Spending Shock on GDP', 'fontsize',18)
-legend('Actual','Counterfactual')
-ylabel('Percent','fontsize',18)
-grid on
-
-% Histroical Decompostion of Tax, Yhat2
-subplot(q,1,3)
-plot(time,ydollar,'b-',time,yhatno2,'r:','linewidth',3);
-title('Cumulative Effect of Tax Shock on GDP','fontsize',18)
-legend('Actual','Counterfactual')
-ylabel('Percent','fontsize',18)
-grid on
+if debug == true
+    
+    gdp = y(:,3);
+    gdp = gdp(1+p:end);
+    yhatno1 = gdp - yhat1;
+    yhatno2 = gdp - yhat2;
+    
+    subplot(q ,1,1)
+    plot(time,gdp,'b-')
+    title(' Detrended GDP real per capita ','fontsize',18)
+    ylabel('dollars?','fontsize',18)
+    grid on
 
 
+    % Histroical Decompostion of Spending, Yhat1
+    subplot(q,1,2)
+    plot(time,gdp,'b-',time,yhatno1,'r:','linewidth',3);
+    title('GDP without Cumulative Effect of Spending Shock on GDP', 'fontsize',18)
+    legend('Actual','Counterfactual')
+    ylabel('Percent','fontsize',18)
+    grid on
+
+    % Histroical Decompostion of Tax, Yhat2
+    subplot(q,1,3)
+    plot(time,gdp,'b-',time,yhatno2,'r:','linewidth',3);
+    title('GDP without Cumulative Effect of Tax Shock on GDP','fontsize',18)
+    legend('Actual','Counterfactual')
+    ylabel('Percent','fontsize',18)
+    grid on
+
+else
+    subplot(q ,1,1)
+    plot(time,gdp(1+p:end),'b-')
+    title(' Detrended GDP real per capita ','fontsize',18)
+    ylabel('Log(Real per Captia Dollars)','fontsize',18)
+    grid on
+
+
+    % Histroical Decompostion of Spending, Yhat1
+    subplot(q,1,2)
+    plot(time,ydollar,'b-',time,yhatno1,'r:','linewidth',3);
+    title('GDP without Cumulative Effect of Spending Shock on GDP', 'fontsize',18)
+    legend('Actual','Counterfactual')
+    ylabel('Log(Real per Captia Dollars)','fontsize',18)
+    grid on
+
+    % Histroical Decompostion of Tax, Yhat2
+    subplot(q,1,3)
+    plot(time,ydollar,'b-',time,yhatno2,'r:','linewidth',3);
+    title('GDP without Cumulative Effect of Tax Shock on GDP','fontsize',18)
+    legend('Actual','Counterfactual')
+    ylabel('Log(Real per Captia Dollars)','fontsize',18)
+    grid on
+
+end
 
 
