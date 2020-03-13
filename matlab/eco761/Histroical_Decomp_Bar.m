@@ -40,7 +40,7 @@ y = table2array(y);
 
 %% Section 2) Calculate the VAR and IRF
 % It does the VAR estiamtion a la OLS
-[A,SIGMA,Uhat,V,X] = olsvarc4(y,p);
+[A,SIGMA,Uhat,V,X] = var_ols(y,p);
 % y       Data matrix
 % B0inv   Structural multiplier matrix
 % A       Companion matrix
