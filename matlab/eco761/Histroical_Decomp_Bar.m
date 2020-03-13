@@ -64,7 +64,7 @@ else
 end 
   
 % Compute structural multipliers for a horizon of t-p
-IRF=irfvar_hw2(A,B0inv,p,q,t-p-1);
+IRF=irfvar_cholesky(A,B0inv,p,q,t-p-1);
 
 % Compute structural shocks What from reduced-form shocks Uhat 
 
