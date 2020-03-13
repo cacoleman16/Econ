@@ -42,7 +42,7 @@ plot(y(:,3))
 
 %% Section 2) Calculate the VAR and IRF
 % It does the VAR estiamtion a la OLS
-[A,SIGMA,Uhat,V,X] = olsvarc4(y,p);
+[A,SIGMA,Uhat,V,X] = var_ols(y,p);
 % y       Data matrix
 % B0inv   Structural multiplier matrix
 % A       Companion matrix
@@ -69,7 +69,7 @@ end
 % then i must figure out which shock i want to graph .
 % Compute structural multipliers for a horizon of t-p
 
-IRF=irfvar_hw2(A,B0inv,p,q,t-p-1);
+IRF=IRF_cholesky(A,B0inv,p,q,t-p-1);
 
 %% Section 3) Weight the Estimated Structral Shocks 
 
