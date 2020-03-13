@@ -20,8 +20,8 @@ global h t;
 
 h=15;           % Maximum impulse response horizon
 p=4;            % Lag order
-start_time = 113 % 1979.1
-end_time = 160 % `1990.1
+start_time = 113; % 1979.1
+end_time = 160; % `1990.1
 
 %I read the data in as a table, but we want it in matrix form
 y = readtable('/Users/chase/Downloads/bpdata.xlsx','ReadRowNames',true);
@@ -94,10 +94,10 @@ yhat3=yhat3(start_time:end_time,1);
 
            
 % Bar chart cumulative GDP per captia change: 1979.1 - 1990
-Dtrue=gdpMean*(1+ytrue(end)/100)-gdpMean*(1+ytrue(1)/100)
-D1=gdpMean*(1+yhat1(end)/100)-gdpMean*(1+yhat1(1)/100)
-D2=gdpMean*(1+yhat2(end)/100)-gdpMean*(1+yhat2(1)/100)
-D3=gdpMean*(1+yhat3(end)/100)-gdpMean*(1+yhat3(1)/100)
+Dtrue=gdpMean*(1+ytrue(end)/100)-gdpMean*(1+ytrue(1)/100);
+D1=gdpMean*(1+yhat1(end)/100)-gdpMean*(1+yhat1(1)/100);
+D2=gdpMean*(1+yhat2(end)/100)-gdpMean*(1+yhat2(1)/100);
+D3=gdpMean*(1+yhat3(end)/100)-gdpMean*(1+yhat3(1)/100);
 
 %% Section 5)
         
